@@ -1,0 +1,38 @@
+# Node modules should not be copied into the Docker image
+node_modules
+
+# Logs and temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+dist
+build
+coverage
+
+# Local environment files
+.env
+.env.local
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE or editor files
+.vscode
+.idea
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Other potentially large files or directories
+tmp
+.cache
