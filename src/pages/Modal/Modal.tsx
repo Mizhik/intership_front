@@ -1,23 +1,23 @@
 import { ReactNode } from "react"
-import "./Modal.css" // Припустимо, що у вас є базові стилі для модального вікна
+import "./Modal.css"
+import { createPortal } from "react-dom"
 
-interface ModalProps {
+export interface ModalProps {
   isOpen: boolean
   onClose: () => void
   children: ReactNode
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  if (!isOpen) return null
+export default function Modal({ isOpen, onClose, children }: ModalProps) {
+  const element = document.querySelector("#modal")
 
-  return (
-    <div className="modal-backdrop">
-      <div className="modal">
-        <button onClick={onClose}>Закрити</button>
-        {children}
-      </div>
-    </div>
-  )
+  return element && isOpen
+    ? createPortal(
+        <div className="modal">
+          <div>{children}</div>
+          <button onClick={onClose}>Close</button>
+        </div>,
+        element
+      )
+    : null
 }
-
-export default Modal

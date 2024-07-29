@@ -2,12 +2,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 
 import Navbar from "./components/Navbar"
 import About from "./pages/About/About"
-import UserRegistration from "./pages/UserRegistration"
-import UserAuthorization from "./pages/UserAuthorization"
-import ListOfUsers from "./pages/ListOfUsers"
-import UserProfile from "./pages/UserProfile"
-import ListOfCompanies from "./pages/ListOfCompanies"
-import CompanyProfile from "./pages/CompanyProfile"
+import UserRegistration from "./pages/UserRegistration/UserRegistration"
+import UserAuthorization from "./pages/UserAuthorization/UserAuthorization"
+import ListOfUsers from "./pages/ListOfUsers/ListOfUsers"
+import UserProfile from "./pages/UserProfile/UserProfile"
+import ListOfCompanies from "./pages/ListOfCompanies/ListOfCompanies"
+import CompanyProfile from "./pages/CompanyProfile/CompanyProfile"
 
 const App = () => {
   return (
