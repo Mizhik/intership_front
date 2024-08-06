@@ -10,7 +10,8 @@ export interface User {
 export interface UserInitialState {
   users: User[]
 }
-export const userInitialState: UserInitialState = {
+
+const userInitialState: UserInitialState = {
   users: [
     { id: 1, email: "user1@gmail.com", firstName: "user", lastName: "1" },
     { id: 2, email: "user2@gmail.com", firstName: "user", lastName: "2" },
@@ -18,7 +19,7 @@ export const userInitialState: UserInitialState = {
   ],
 }
 
-export const UserSlice = createSlice({
+const userSlice = createSlice({
   name: "user",
   initialState: userInitialState,
   reducers: {
@@ -27,10 +28,11 @@ export const UserSlice = createSlice({
       if (!user) {
         state.users.push(action.payload)
       } else {
-        alert("User with exist")
+        alert("User with this ID already exists")
       }
     },
   },
 })
 
-export const { actions, reducer } = UserSlice
+export const { addUser } = userSlice.actions
+export default userSlice.reducer
