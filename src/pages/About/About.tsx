@@ -1,14 +1,37 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Modal from "../Modal/Modal.tsx"
 import "./About.css"
+import { getHealth } from "../../api/healthcheck/healthcheck.ts"
+
+interface Result {
+  message: string
+}
 
 const About = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [posts, setPosts] = useState<Result | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getHealth()
+      .then((response: Result) => {
+        setPosts(response)
+      })
+      .catch((err) => {
+        console.log(err)
+      }).finally(()=>{
+        setLoading(false)
+      })
+  }, [])
 
   return (
     <div>
       <h1>Про нас</h1>
-      <p>Це сторінка "Про нас".</p>
+      {loading ? (
+        <p>Завантаження...</p>
+      ) : (
+        <p>{posts ? posts.message : "Немає даних"}</p>
+      )}
       <button onClick={() => setIsModalOpen(true)}>
         Відкрити модальне вікно
       </button>
