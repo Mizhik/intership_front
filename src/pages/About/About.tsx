@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import Modal from "../Modal/Modal.tsx"
 import "./About.css"
-import { getPosts } from "../../api/healthcheck.ts"
+import { getHealth } from "../../api/healthcheck/healthcheck.ts"
 
 interface Result {
   message: string
@@ -13,7 +13,7 @@ const About = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getPosts()
+    getHealth()
       .then((response: Result) => {
         setPosts(response)
         setLoading(false)
