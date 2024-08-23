@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import "./Navbar.css"
@@ -12,7 +12,6 @@ const Navbar: React.FC = () => {
     (state: any) => state.auth.isAuthenticated
   )
   const { logout: auth0Logout } = useAuth0()
-  const [loading, setLoading] = useState(false)
 
   const handleLogout = () => {
     dispatch(logout())
@@ -21,21 +20,9 @@ const Navbar: React.FC = () => {
   }
 
   const handleNavigation = async (path: string) => {
-    setLoading(true)
-    try {
-      navigate(path)
-    } catch (error) {
-      console.error("Недійсний токен, вихід із системи...", error)
-      dispatch(logout())
-      navigate("/login")
-    } finally {
-      setLoading(false)
-    }
+    navigate(path)
   }
 
-  if (loading) {
-    return <div>Завантаження...</div>
-  }
 
   return (
     <nav>
@@ -43,7 +30,7 @@ const Navbar: React.FC = () => {
         <li>
           <span onClick={() => handleNavigation("/about")}>Про нас</span>
         </li>
-        {isAuthenticated && (
+        {isAuthenticated ? (
           <>
             <li>
               <span onClick={() => handleNavigation("/users")}>
@@ -59,8 +46,7 @@ const Navbar: React.FC = () => {
               <button onClick={handleLogout}>Вихід</button>
             </li>
           </>
-        )}
-        {!isAuthenticated && (
+        ) : (
           <>
             <li>
               <Link to="/login">Авторизація</Link>

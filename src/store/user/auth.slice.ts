@@ -1,14 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { User } from "../../interfaces"
 
 export interface AuthState {
   token: string | null
   isAuthenticated: boolean
-  user: any
+  user: User | null
 }
 
 const initialState: AuthState = {
   token: localStorage.getItem("token"),
-  isAuthenticated: !!localStorage.getItem("token"),
+  isAuthenticated: false,
   user: null,
 }
 

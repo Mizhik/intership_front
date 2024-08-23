@@ -7,34 +7,28 @@ import { getUserInfo } from "../../api/auth/auth"
 const AuthVerifier: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0()
+  const { isAuthenticated, isLoading } = useAuth0()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const verifyToken = async () => {
-      try {
-        const token = localStorage.getItem("token")
-        if (token) {
+      const token = localStorage.getItem("token")
+      if (token) {
+        try {
           const userData = await getUserInfo()
           dispatch(setAuthenticated({ token, user: userData }))
-        } else if (isAuthenticated) {
-          const accessToken = await getAccessTokenSilently()
-          const userData = await getUserInfo()
-          dispatch(setAuthenticated({ token: accessToken, user: userData }))
-        } else {
+        } catch (error) {
           dispatch(logout())
         }
-      } catch (error) {
-        console.error("Error verifying token:", error)
+      } else {
         dispatch(logout())
-      } finally {
-        setLoading(false)
       }
+      setLoading(false)
     }
 
     verifyToken()
-  }, [isAuthenticated, getAccessTokenSilently, dispatch])
+  }, [isAuthenticated, dispatch])
 
   if (isLoading || loading) {
     return <div>Loading...</div>
