@@ -3,7 +3,7 @@ import instance from "../instance"
 import { IUpdateUser } from "../../interfaces"
 
 export const GetUsers = async () => {
-  const response = await instance.get(USER)
+  const response = await instance.get(`${USER}`)
   return response.data
 }
 
