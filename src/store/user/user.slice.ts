@@ -1,38 +1,61 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-
-export interface User {
-  id: number
-  email: string
-  firstName: string
-  lastName: string
-}
+import { User } from "../../interfaces"
 
 export interface UserInitialState {
   users: User[]
+  userInfo: User | null
+  loading: boolean
+  userLoading: boolean
+  error: string | null
+  userError: string | null
 }
 
 const userInitialState: UserInitialState = {
-  users: [
-    { id: 1, email: "user1@gmail.com", firstName: "user", lastName: "1" },
-    { id: 2, email: "user2@gmail.com", firstName: "user", lastName: "2" },
-    { id: 3, email: "user3@gmail.com", firstName: "user", lastName: "3" },
-  ],
+  users: [],
+  userInfo: null,
+  loading: false,
+  userLoading: false,
+  error: null,
+  userError: null,
 }
 
 const userSlice = createSlice({
   name: "user",
   initialState: userInitialState,
   reducers: {
-    addUser: (state, action: PayloadAction<User>) => {
-      const user = state.users.find((u) => u.id === action.payload.id)
-      if (!user) {
-        state.users.push(action.payload)
-      } else {
-        alert("User with this ID already exists")
-      }
+    setUsers: (state, action: PayloadAction<User[]>) => {
+      state.users = action.payload
+      state.loading = false
+      state.error = null
+    },
+    setUserInfo: (state, action: PayloadAction<User>) => {
+      state.userInfo = action.payload
+      state.userLoading = false
+      state.userError = null
+    },
+    setLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload
+    },
+    setUserLoading: (state, action: PayloadAction<boolean>) => {
+      state.userLoading = action.payload
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload
+      state.loading = false
+    },
+    setUserError: (state, action: PayloadAction<string | null>) => {
+      state.userError = action.payload
+      state.userLoading = false
     },
   },
 })
 
-export const { addUser } = userSlice.actions
+export const {
+  setUsers,
+  setUserInfo,
+  setLoading,
+  setUserLoading,
+  setError,
+  setUserError,
+} = userSlice.actions
 export default userSlice.reducer
