@@ -13,9 +13,13 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
 
   return element && isOpen
     ? createPortal(
-        <div className="modal">
-          <div>{children}</div>
-          <button onClick={onClose}>Close</button>
+        <div className="modal-overlay" onClick={onClose}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={onClose}>
+              &times;
+            </button>
+            {children}
+          </div>
         </div>,
         element
       )

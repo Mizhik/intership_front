@@ -18,3 +18,15 @@ export interface IUpdateUser {
   username: string
   password: string
 }
+
+export interface WorkFlowCompany {
+  name: string
+  description: string
+  is_visible: boolean
+}
+export interface Company {
+  id: string
+  name: string
+  description: string
+  is_visible: boolean
+}

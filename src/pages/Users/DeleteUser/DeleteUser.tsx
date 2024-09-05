@@ -16,6 +16,7 @@ const DeleteUser = () => {
       await DeleteUserApi(userId)
       setSuccess(true)
       setError("")
+      window.location.reload()
     } catch (err: any) {
       setError("Failed to delete user")
       setSuccess(false)
